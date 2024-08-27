@@ -1,19 +1,23 @@
 package com.practice.myappvs.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import com.practice.myappvs.model.Student;
+import lombok.Data;
 
 @Entity
 @Table(name = "msg")
+@Data
 public class Message {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String content;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Student student;
 
     public Message() {
 

@@ -6,13 +6,12 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+
 @RestController
 public class MessageController {
 
@@ -30,13 +29,13 @@ public class MessageController {
     }
 
     @GetMapping("/getmsg")
-    public ResponseEntity<Message> getMsg(@PathVariable Long id){
+    public ResponseEntity<Message> getMsg(@RequestParam Long id){
         Optional<Message>op=msgrepo.findById(id);
         if(op.isPresent()){
             Message myMsg=op.get();
             return ResponseEntity.ok(myMsg);
         }
-        return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/getallmsg")
